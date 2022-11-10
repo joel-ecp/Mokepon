@@ -139,7 +139,9 @@ function extraerAtaques(mascotaJugador){
 
 function mostrarAtaques(ataques) {
     ataques.forEach((ataque) => {
-        ataquesMokepon =  `<button id=${ataque.id} class="boton-de-ataque BAtaque">${ataque.nombre}</button>`
+        ataquesMokepon =  `
+            <button id=${ataque.id} class="boton-de-ataque BAtaque">${ataque.nombre}</button>
+            `
       contenedorAtaques.innerHTML += ataquesMokepon  
     })
 
