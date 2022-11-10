@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>MOKEPON!</title>
+        <link rel="stylesheet" href="./styles.css">
+    </head>
+
+    <body>
+        
+        <section id = "elegir-mokepon">
+
+            <h1 class="titulo" > MOKEPON! 🔥💦🌿</h1>
+
+            <h2 class="subtitulo">Elige tu mokepon:</h2>
+
+            <div id="contenedorTarjetas" class="tarjetas">
+                             
+                <!--MOKEPONS
+                Hipodoge -> Agua
+                Capipepo -> Planta
+                Ratigueya -> Fuego
+                Langostelvis -> Agua y Fuego
+                Tucapalma -> Agua y Tierra
+                Pydos -> Tierra y Agua -->
+
+            </div>
+
+                <button id="boton-mokepon">seleccionar</button>
+
+        </section>
+         
+        <section id="elegir-ataque">
+
+            <h1 class="titulo" > MOKEPON! 🔥💦🌿</h1>
+
+            <h2 class="subtitulo">Elige tu ataque:</h2>
+
+            <div id='contenedorAtaques' class="tarjetas-ataques">
+                
+            </div>
+
+            <div id="mensajes">  
+                    <P id="resultado">Comienza el Combate...</P>
+                    <section id="reiniciar">
+                        <button id="boton-reiniciar">Reiniciar</button>
+                    </section>
+            </div> 
+
+            <div class="ataques">
+                <div class="ataque-jugador">
+                    <p id="vida-jugador">3</p>
+                    <p id="mokepon-jugador"></p>
+                    <div id="ataques-del-jugador"> </div> 
+                </div>
+                <div class="ataque-enemigo">
+                    <p id="vida-enemigo">3</p>
+                    <p id="mokepon-enemigo"></p> 
+                    <div id="ataques-del-enemigo"> </div>
+                </div>                                                       
+            </div>
+                                
+        </section>
+
+        <script src="./javascript/mokepon.js"></script>
+
+    </body>
+
+</html>

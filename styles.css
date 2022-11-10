@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen&Carter+One&family=Silkscreen&display=swap');
+
+
+body{
+    font-family: 'Silkscreen', cursive;
+    background-color: #256D85;
+}
+
+#elegir-mokepon{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo {
+    color:#D6EAF8;
+    font-size: 60px; 
+}
+
+.subtitulo{
+    color:#D6EAF8;
+    font-size: 40px; 
+}
+
+.tarjetas, .tarjetas-ataques{
+    display: flex;
+    gap: 10px;
+}
+
+.tarjeta-de-mokepon{
+    width: 200px;
+    height: 100px;
+    background: #47B5FF;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    color:#D6EAF8 ;
+}
+
+.tarjeta-de-mokepon img{
+    width: 80px;
+}
+
+#boton-mokepon{
+    width: 160px;
+    height: 40px;
+    background: transparent;
+    border:3px solid #FB2576;
+    color: #D6EAF8;
+    margin-top: 40px;
+    border-radius: 20px;
+    font-family: 'Carter One', cursive;
+}
+
+input {
+    display: none;
+}
+
+input:checked + label{
+    background: #18159c;
+}
+
+#elegir-ataque{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.boton-ataque{
+    background: #FFF9B0;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    border:3px solid #FB2576;
+    width: 100px;
+    font-family: 'Carter One', cursive;
+}
+
+#mensajes{
+    width: 280px;
+    background: #00FFD1 ;
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#boton-reiniciar{
+    border: transparent;
+    color: #47B5FF;
+    font-family: 'Carter One', cursive;
+    background: black;
+}
+
+.ataques{
+    display: grid;
+    grid-template-columns: 100px 100px;
+    column-gap: 40px;
+    margin: 40px;    
+    text-align: center;
+}
+
+.ataque-jugador, .ataque-enemigo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#vidas-jugador, #vidas-enemigo{
+    font-size: 32px;    
+    margin-bottom: 0;
+}
+
+@media (max-width:400px){
+    .tarjetas{
+        flex-direction: column;
+    }
+    .tarjetas-ataques{
+        flex-direction: column;
+    }
+}
