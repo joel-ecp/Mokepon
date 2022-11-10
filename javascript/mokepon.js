@@ -20,17 +20,22 @@ const contenedorAtaques = document.getElementById('contenedorAtaques')
 
 let mokepones = []
 let ataqueJugador = []
-let ataqueEnemigo
+let ataqueEnemigo = []
 let opcionDeMokepones
 let inputHipodoge 
 let inputCapipepo 
 let inputRatigueya 
 let mascotaJugador
 let ataquesMokepon
+let ataquesMokeponEnemigo
 let botonFuego 
 let botonAgua 
 let botonPlanta 
 let botones = []
+let indexAtaqueJugador
+let indexAtaqueEnemigo
+let victoriasJugador = 0
+let victoriasEnemigo = 0
 let vidasJugador = 3
 let vidasEnemigo = 3
 let botonReiniciar
@@ -139,35 +144,39 @@ function extraerAtaques(mascotaJugador){
 
 function mostrarAtaques(ataques) {
     ataques.forEach((ataque) => {
-        ataquesMokepon =  `<button id=${ataque.id} class="boton-de-ataque BAtaque">${ataque.nombre}</button>`
+      ataquesMokepon = `<button id=${ataque.id} class="boton-ataque BAtaque">${ataque.nombre}</button>`
       contenedorAtaques.innerHTML += ataquesMokepon  
     })
 
     botonFuego = document.getElementById('boton-fuego')
     botonAgua = document.getElementById('boton-agua')
     botonPlanta = document.getElementById('boton-planta')
-    botones = document.querySelectorAll ('.BAtaque') 
+    botones = document.querySelectorAll('.BAtaque') 
 
 }
 
 function secuenciaAtaque(){
-    botones.forEach(boton => {
+    botones.forEach((boton) => {
         boton.addEventListener('click', (e) => {
-            if (e.target.texContent === '🔥 ') {
+            if (e.target.texContent==='🔥'){
                     ataqueJugador.push('FUEGO')
                     console.log(ataqueJugador)
                     boton.style.background = '#112f58'
-            } else if (e.target.texContentt === '💦 ') {
+                    boton.disabled = true
+            } else if (e.target.texContentt==='💦'){
                     ataqueJugador.push('AGUA')
                     console.log(ataqueJugador)
                     boton.style.background = '#112f58'
+                    boton.disabled = true
             } else  {
                     ataqueJugador.push('PLANTA')
                     console.log(ataqueJugador)
                     boton.style.background = '#112f58'
+                    boton.disabled = true
             }
+            ataqueRandomEnemigo()
         })
-    });
+    })
 }
 
 //seleccionar mokepon Enemigo
@@ -175,6 +184,7 @@ function seleccionarMokeponEnemigo() {
     let mascotaAleatorio = aleatorio(0, mokepones.length -1)
    
     spanMokeponEnemigo.innerHTML = mokepones[mascotaAleatorio].nombre
+    ataquesMokeponEnemigo = mokepones[mascotaAleatorio].ataques
     secuenciaAtaque()
 }
 
@@ -183,42 +193,61 @@ function seleccionarMokeponEnemigo() {
 //ataque enemigo
 
 function ataqueRandomEnemigo(){
-        let ataqueAleatorio = aleatorio(1,3)
+        let ataqueAleatorio = aleatorio(0,ataquesMokeponEnemigo.length -1)
     
-        if (ataqueAleatorio==1){
-            ataqueEnemigo='FUEGO'
-        }  else if (ataqueAleatorio==2){
-            ataqueEnemigo='AGUA'
+        if (ataqueAleatorio==0 || ataqueAleatorio==1){
+            ataqueEnemigo.push('FUEGO')
+        }  else if (ataqueAleatorio==3 || ataqueAleatorio==4){
+            ataqueEnemigo.push('AGUA')
         } else {
-            ataqueEnemigo= 'PLANTA'
+            ataqueEnemigo.push('PLANTA')
     
         }
+        console.log(ataqueEnemigo)
+        iniciarPelea()
+}
 
+function iniciarPelea() {
+    if (ataqueJugador.length===5) {
         combate()
+    }
+}
+
+function indexAmbosOponentes(jugador,enemigo) {
+    indexAtaqueJugador = ataqueJugador[jugador]
+    indexAtaqueEnemigo = ataqueEnemigo[enemigo]
 }
 
 //combate
 function combate() {
-        
-    if(ataqueEnemigo == ataqueJugador){
-        crearMensaje("Empataron😑")
-     } else if (ataqueJugador == 'FUEGO' && ataqueEnemigo == 'PLANTA') {
-        crearMensaje("Ganaste🥇")
-        vidasEnemigo --
-        spanvidaEnemigo.innerHTML= vidasEnemigo
-     } else if (ataqueJugador == 'AGUA' && ataqueEnemigo == 'FUEGO') {
-        crearMensaje("Ganaste🥇")
-        vidasEnemigo --
-        spanvidaEnemigo.innerHTML= vidasEnemigo
-     } else if (ataqueJugador == 'PLANTA' && ataqueEnemigo == 'AGUA') {
-        crearMensaje("Ganaste🥇")
-        vidasEnemigo --
-        spanvidaEnemigo.innerHTML= vidasEnemigo
-     } else {
-        crearMensaje("Perdiste😣")
-        vidasJugador --
-        spanvidaJugador.innerHTML= vidasJugador
-        }   
+
+    for (let index = 0; index < ataqueJugador.length; index++) {
+        if(ataqueJugador[index]===ataqueEnemigo[index]) {
+            indexAmbosOponentes(index, index)
+            crearMensaje("Empataron😑")
+        } else if (ataqueJugador[index]=='FUEGO' && ataqueEnemigo[index]=='PLANTA') {
+            indexAmbosOponentes(index, index)
+            crearMensaje("Ganaste🥇")
+            victoriasJugador++
+            spanvidaJugador.innerHTML = victoriasJugador
+            //spanvidaEnemigo.innerHTML= vidasEnemigo
+        } else if (ataqueJugador[index]=='AGUA' && ataqueEnemigo[index]=='FUEGO') {
+            indexAmbosOponentes(index, index)
+            crearMensaje("Ganaste🥇")
+            victoriasJugador++
+            spanvidaJugador.innerHTML = victoriasJugador
+        } else if (ataqueJugador[index]=='PLANTA' && ataqueEnemigo[index]=='AGUA') {
+            indexAmbosOponentes(index, index)
+            crearMensaje("Ganaste🥇")
+            victoriasJugador++
+            spanvidaJugador.innerHTML = victoriasJugador
+        } else {
+            indexAmbosOponentes(index, index)
+            crearMensaje("Perdiste😣")
+            victoriasEnemigo++
+            spanvidaEnemigo.innerHTML = victoriasEnemigo
+        }
+    }
     //revision de vidas
     revisarvidas()
 
@@ -226,11 +255,13 @@ function combate() {
 
 function revisarvidas() {
    
-    if (vidasEnemigo == 0){
+    if (victoriasJugador === victoriasEnemigo){
+        crearMensajeFinal('ESTO FUE UN EMPATE!!!')
+    } else if (victoriasJugador > victoriasEnemigo){
         crearMensajeFinal('HAS GANADO LA PARTIDA :)')
-    } else if (vidasJugador==0){
+    } else {
         crearMensajeFinal('HAS PERDIDO LA PARTIDA :(')
-    } 
+    }
 }
 
 function crearMensaje(resultado) {
@@ -238,8 +269,8 @@ function crearMensaje(resultado) {
     let nuevoAtaqueEnemigo = document.createElement ('p')
 
     sectionmensajes.innerHTML= resultado
-    nuevoAtaqueJugador.innerHTML = ataqueJugador
-    nuevoAtaqueEnemigo.innerHTML = ataqueEnemigo
+    nuevoAtaqueJugador.innerHTML = indexAtaqueJugador
+    nuevoAtaqueEnemigo.innerHTML = indexAtaqueEnemigo
 
   //ESTO SE MODIFICO CUANDO SE PASO A LA SECCION DEL CCS
   // let parrafo = document.createElement ('p')
@@ -253,12 +284,7 @@ function crearMensajeFinal(resultadoFinal) {
     
     sectionmensajes.innerHTML = resultadoFinal
     
-    botonFuego.disabled = true
-    
-    botonAgua.disabled = true
-    
-    botonPlanta.disabled = true
-
+  
     sectionReiniciar.style.display = 'block'
 }
 
